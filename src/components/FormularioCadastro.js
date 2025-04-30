@@ -14,7 +14,7 @@ export function FormularioCadastro () {
     const navigation = useNavigation();
 
     const [usuario, setUsuario] = useState({
-        biografia : '',
+        biografia : 'Olá estou no ifconnection!',
         campus : '',
         curso : '',
         nome : '',
@@ -36,7 +36,7 @@ export function FormularioCadastro () {
         setUsuario(prevUsuario => ({...usuario, ['genero'] : option}))
     }
 
-    const [listaCursos, setCursos] = useState()
+    const [listaCursos, setCursos] = useState([])
     const onHandleCampusChange = (value) => {
         setUsuario(prevUsuario => ({...usuario, ['campus'] : value}))
 
@@ -46,6 +46,10 @@ export function FormularioCadastro () {
             }
         }
 
+    }
+
+    const onHandleCursoChange = (value) => {
+        setUsuario(prevUsuario => ({...usuario, ['curso'] : value }))
     }
 
     const cadastrar = async () => {
@@ -68,10 +72,10 @@ export function FormularioCadastro () {
         <View>
 
             <Input name='nome' placeHolder='seu nome...' handleChange={onHandleChange} type='default'/>
-            <InputDate usuario={usuario} onChange={(data) => onHandleDateChange(data.toLocaleDateString('pt-BR'))}/>
-            <InputSelect label='Campus que você estuda' options={campus} onChange={onHandleCampusChange}/>
-            { campus != '' ? (<InputSelect label='O que você está cursando?'  />) : (<></>)}
-            <InputRadio options={['masculino', 'feminino', 'outro']} onChange={(option) => onHandleGenderChange(option)}/>
+            <InputDate usuario={usuario} onChange={onHandleDateChange}/>
+            <InputSelect label='Campus que você estuda' options={campus} onChange={onHandleCampusChange} placeHolder='Selecione...' type='normal'/>
+            {usuario.campus != '' ? (<InputSelect label='O que você está cursando?' options={listaCursos} onChange={onHandleCursoChange} placeHolder='Selecione...' type='normal'/>) : (<></>)}
+            <InputRadio options={['Masculino', 'Feminino', 'Outro']} onChange={(option) => onHandleGenderChange(option)}/>
             <Input name='email' placeHolder='seu email...' handleChange={onHandleChange} type='email-adress'/>
             <Input name='senha' placeHolder='sua senha...' handleChange={onHandleChange} type='visible-password'/>
 
