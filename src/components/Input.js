@@ -73,27 +73,29 @@ export function InputRadio ({onChange, options}) {
     )
 }
 
-export function InputSelect ({onChange, options}) {
+export function InputSelect ({onChange, options, label}) {
 
-    const [open, setOpen] = useState(false);
-    const[value, setValue] = useState('selecione...');
+    const [open, setOpen] = useState(true);
+    const[value, setValue] = useState();
 
     const handleChange = (itemValue) => {
-        setValue(itemValue)
+        console.log('teste')
+        setOpen(false)
         onChange(itemValue)
     }
 
     return (
         <View>
-            <Text>Campus que estuda</Text>
+            <Text>{label}</Text>
 
-            <Picker selectedValue={value} onValueChange={(itemValue) => handleChange(itemValue)} style={styles.input}>
+            <Picker selectedValue={value} onValueChange={handleChange} style={styles.input}>
+                <Picker.Item label="selecione..." value={''} enabled={open}/>
                 {options.map((item, index) => (
-                    <Picker.Item label={item.label} value={item.value} key={index}/>
+                    <Picker.Item label={item} value={item} key={index}/>
                 ))}
             </Picker>
 
-        </View>
+        </View> 
     )
 }
 

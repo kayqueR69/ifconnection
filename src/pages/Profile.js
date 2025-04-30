@@ -46,14 +46,6 @@ export function Profile () {
                         </TouchableOpacity>
                     </View>
 
-                    <View style={styles.containerPost}>
-                        {Postagens.map((item, index) => (
-                            <View key={index} style={styles.containerPost}>
-                                {item.idUsuario == usuario.id ? (<Post post={item} key={index}/>) : console.log('')}
-                            </View>
-                        ))}
-                    </View>  
-
                 </View>
 
             ) : (<Text>Falha em encontrar usuario</Text>)}

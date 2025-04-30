@@ -1,5 +1,4 @@
 import { StyleSheet, View, Text } from "react-native";
- import { usuarios } from "../../mock/Usuarios";
 
 export function Post ({post}) {
     return (
