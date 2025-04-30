@@ -5,37 +5,62 @@ import { StyleSheet } from "react-native"
 import { useRoute } from "@react-navigation/native"
 import { Postagens } from "../../mock/Postagens"
 import { Post } from "../components/Post"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Feather } from 'react-native-vector-icons'
+import { doc, getDoc } from "firebase/firestore"
+import { db } from "../../FirebaseConfig"
+
 
 export function Profile () {
 
     const route = useRoute()
     const {uid} = route.params
+    const [usuario, setUsuario] = useState()
+    const [catchUser, setCatch] = useState(false)
+
+    useEffect(() => {
+
+        const fetchUsuario = async () => {
+            const docRef = doc(db, 'usuarios', uid)
+            await getDoc(docRef).then((queryResult) => {
+                setUsuario(queryResult.data())
+                setCatch(true)
+            })
+        }
+
+        fetchUsuario()
+
+    })
 
     return (
+
         <>
-        {/*<View style={{ width : '100%'}}>
+            { catchUser ? (
+                <View style={{ width : '100%'}}>
             
-            <Header usuario={{usuario : usuario}}/>
-            <View style={styles.postLine} >
-                <Text style={styles.textPostLine}>Postagens</Text>
-                <TouchableOpacity>
-                    <Feather name={'plus-circle'} size={40} color={'white'}/>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.containerPost}>
-                {Postagens.map((item, index) => (
-                    <View key={index} style={styles.containerPost}>
-                        {item.idUsuario == usuario.id ? (<Post post={item} key={index}/>) : console.log('')}
+                    <Header usuario={{usuario : usuario}}/>
+                    <View style={styles.postLine} >
+                        <Text style={styles.textPostLine}>Postagens</Text>
+                        <TouchableOpacity>
+                            <Feather name={'plus-circle'} size={40} color={'white'}/>
+                        </TouchableOpacity>
                     </View>
-                ))}
-            </View>  
 
-        </View>*/}
-            <Text>{uid}</Text>
+                    <View style={styles.containerPost}>
+                        {Postagens.map((item, index) => (
+                            <View key={index} style={styles.containerPost}>
+                                {item.idUsuario == usuario.id ? (<Post post={item} key={index}/>) : console.log('')}
+                            </View>
+                        ))}
+                    </View>  
+
+                </View>
+
+            ) : (<Text>Falha em encontrar usuario</Text>)}
         </>
+        
+
+        
     )
 }
  
