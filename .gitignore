@@ -35,8 +35,4 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-<<<<<<< HEAD
-FirebaseConfig.js
-=======
 Venv.js
->>>>>>> 752b5e8 (fix: ajustes)
