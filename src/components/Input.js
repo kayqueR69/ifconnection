@@ -18,6 +18,15 @@ export function InputDate ({ onChange }) {
     const [meses, setMeses] = useState([])
     const [anos, setAnos] = useState([])
 
+    const preencheDias = () => {
+        const listaDias = []
+        for (let c = 1; c <= 31; c++) {
+            listaDias.push(c)
+        }
+
+        return listaDias
+    }
+
     useEffect(() => {
 
         const listaAnos = []
@@ -32,11 +41,7 @@ export function InputDate ({ onChange }) {
         }
         setMeses(listaMeses)
 
-        const listaDias = []
-        for (let c = 1; c <= 31; c++) {
-            listaDias.push(c)
-        }
-        setQtdDias(listaDias)
+        setQtdDias(preencheDias())
 
     }, [])
 
@@ -53,13 +58,17 @@ export function InputDate ({ onChange }) {
         const novaData = data.substring(0,3) + mes + data.substring(5);
 
         if (e == 2) {
-            const dias = qtdDias;
+
+            const dias = preencheDias();
             dias.splice(-3, 3)
             setQtdDias(dias)
+
         } else if (e == 4 || e == 6 || e == 9 || e == 11) {
-            const dias = qtdDias;
+            
+            const dias = preencheDias();
             dias.splice(-1, 1)
             setQtdDias(dias)
+
         }
 
         onChange(novaData)
