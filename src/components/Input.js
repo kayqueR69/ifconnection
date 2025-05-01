@@ -21,7 +21,7 @@ export function InputDate ({ onChange }) {
     const preencheDias = () => {
         const listaDias = []
         for (let c = 1; c <= 31; c++) {
-            listaDias.push(c)
+            listaDias.push(c < 10 ? '0' + c : c)
         }
 
         return listaDias
@@ -37,7 +37,7 @@ export function InputDate ({ onChange }) {
 
         const listaMeses = []
         for (let c = 1; c <= 12; c++) {
-            listaMeses.push(c)
+            listaMeses.push(c < 10 ? '0' + c : c)
         }
         setMeses(listaMeses)
 
@@ -48,13 +48,13 @@ export function InputDate ({ onChange }) {
     const [data, setData] = useState('DD/MM/AAAA')
 
     const onDayChange = (e) => {
-        const dia = e.length === 1 ? '0' + e : e;  
+        const dia = e;  
         const novaData = dia + data.substring(2);
         onChange(novaData)
         setData(novaData);
     }
     const onMonthChange = (e) => {
-        const mes = e.length === 1 ? '0' + e : e;
+        const mes = e;
         const novaData = data.substring(0,3) + mes + data.substring(5);
 
         if (e == 2) {
@@ -148,7 +148,7 @@ export function InputSelect ({onChange, options, label, placeHolder, type}) {
 const styles = StyleSheet.create({
     input : {
         height : 40,
-        width : 300,
+        width : '100%',
         padding : 5,
         borderRadius : 7,
         borderWidth : 1,

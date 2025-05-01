@@ -36,7 +36,7 @@ export function FormularioCadastro () {
         setUsuario(prevUsuario => ({...usuario, ['genero'] : option}))
     }
 
-    const [listaCursos, setCursos] = useState([])
+    const [listaCursos, setCursos] = useState()
     const onHandleCampusChange = (value) => {
         setUsuario(prevUsuario => ({...usuario, ['campus'] : value}))
 
